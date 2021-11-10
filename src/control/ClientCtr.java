@@ -127,6 +127,10 @@ public class ClientCtr {
                                             FriendFrm ff = (FriendFrm) fto.getData();
                                             ff.receivedDataProcessing(data);
                                             break;
+                                        case ObjectWrapper.REPLY_RANK:
+                                            RankingTableFrm rtf = (RankingTableFrm) fto.getData();
+                                            rtf.receivedDataProcessing(data);
+                                            break;
                                     }
                                 }
                             }

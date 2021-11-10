@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 
 public class MainFrm extends javax.swing.JFrame {
-    private ClientCtr mySocket;
+    private ClientCtr myControl;
     private Player player;
 
     /**
@@ -20,18 +20,18 @@ public class MainFrm extends javax.swing.JFrame {
      */
     public MainFrm(Player p, ClientCtr socket) {
         player = p;
-        mySocket = socket;
+        myControl = socket;
         initComponents(p);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                mySocket.sendData(new ObjectWrapper(ObjectWrapper.LOGOUT_USER, player));
+                myControl.sendData(new ObjectWrapper(ObjectWrapper.LOGOUT_USER, player));
             }
         });
 
-        mySocket.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_LOGOUT_USER, this));
+        myControl.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_LOGOUT_USER, this));
     }
 
     /**
@@ -237,33 +237,34 @@ public class MainFrm extends javax.swing.JFrame {
 
     private void btnfriendActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        for (ObjectWrapper func : mySocket.getActiveFunction())
+        for (ObjectWrapper func : myControl.getActiveFunction())
             if (func.getData() instanceof FriendFrm) {
                 ((OnlinePlayerFrm) func.getData()).setVisible(true);
                 return;
             }
-        FriendFrm ff = new FriendFrm(mySocket, player);
+        FriendFrm ff = new FriendFrm(myControl, player);
         ff.setVisible(true);
     }
 
     private void btnonlineplayerActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        for (ObjectWrapper func : mySocket.getActiveFunction())
+        for (ObjectWrapper func : myControl.getActiveFunction())
             if (func.getData() instanceof OnlinePlayerFrm) {
                 ((OnlinePlayerFrm) func.getData()).setVisible(true);
                 return;
             }
-        OnlinePlayerFrm opf = new OnlinePlayerFrm(mySocket, player);
+        OnlinePlayerFrm opf = new OnlinePlayerFrm(myControl, player);
         opf.setVisible(true);
     }
 
     private void btnrankingActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        new RankingTableFrm(myControl).setVisible(true);
     }
 
     private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        mySocket.sendData(new ObjectWrapper(ObjectWrapper.LOGOUT_USER, player));
+        myControl.sendData(new ObjectWrapper(ObjectWrapper.LOGOUT_USER, player));
     }
 
     private void btngroupActionPerformed(java.awt.event.ActionEvent evt) {
@@ -298,7 +299,7 @@ public class MainFrm extends javax.swing.JFrame {
         switch (data.getPerformative()) {
             case ObjectWrapper.REPLY_LOGOUT_USER:
                 if (data.getData().equals("ok")) {
-                    mySocket.sendData(new ObjectWrapper(ObjectWrapper.ONLINE_PLAYER, player)); // update online player
+                    myControl.sendData(new ObjectWrapper(ObjectWrapper.ONLINE_PLAYER, player)); // update online player
                     this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "An error occurred while trying to log out");

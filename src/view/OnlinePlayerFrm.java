@@ -19,13 +19,13 @@ public class OnlinePlayerFrm extends JFrame implements ActionListener{
     private JTextField txtKey;
     private JButton btnRefresh;
     private JTable tblResult;
-    private ClientCtr mySocket;
+    private ClientCtr myControl;
     private JTextArea mainText;
 
     public OnlinePlayerFrm(ClientCtr socket, Player p){
         super("Online Player");
         this.player = p;
-        mySocket = socket;
+        myControl = socket;
         listPlayer = new ArrayList<Player>();
 
         JPanel pnMain = new JPanel();
@@ -65,16 +65,16 @@ public class OnlinePlayerFrm extends JFrame implements ActionListener{
                 if (row < tblResult.getRowCount() && row >= 0 && column < tblResult.getColumnCount() && column >= 0) {
                     //search and delete all existing previous view
                     ObjectWrapper existed = null;
-                    for(ObjectWrapper func: mySocket.getActiveFunction())
+                    for(ObjectWrapper func: myControl.getActiveFunction())
                         if(func.getData() instanceof PlayerInfoFrm) {
                             ((PlayerInfoFrm)func.getData()).dispose();
                             existed = func;
                         }
                     if(existed != null)
-                        mySocket.getActiveFunction().remove(existed);
+                        myControl.getActiveFunction().remove(existed);
 
                     //create new instance
-                    (new PlayerInfoFrm(mySocket, player ,listPlayer.get(row))).setVisible(true);
+                    (new PlayerInfoFrm(myControl, player ,listPlayer.get(row))).setVisible(true);
                     //dispose();
                 }
             }
@@ -95,7 +95,7 @@ public class OnlinePlayerFrm extends JFrame implements ActionListener{
         this.setLocation(200,10);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        mySocket.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_ONLINE_PLAYER, this));
+        myControl.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_ONLINE_PLAYER, this));
     }
 
     @Override
@@ -103,7 +103,7 @@ public class OnlinePlayerFrm extends JFrame implements ActionListener{
         // TODO Auto-generated method stub
         JButton btnClicked = (JButton)e.getSource();
         if(btnClicked.equals(btnRefresh)){
-            mySocket.sendData(new ObjectWrapper(ObjectWrapper.ONLINE_PLAYER,player));
+            myControl.sendData(new ObjectWrapper(ObjectWrapper.ONLINE_PLAYER,player));
         }
     }
 

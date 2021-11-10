@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Administrator
  */
 public class FriendFrm extends javax.swing.JFrame {
-    private ClientCtr mySocket;
+    private ClientCtr myControl;
     private Player player;
     private ArrayList<Player> friendList;
     private ArrayList<Player> requestList;
@@ -24,15 +24,15 @@ public class FriendFrm extends javax.swing.JFrame {
      * Creates new form FriendFrm
      */
     public FriendFrm(ClientCtr socket, Player p) {
-        mySocket = socket;
+        myControl = socket;
         player = p;
         initComponents();
 
-        mySocket.sendData(new ObjectWrapper(ObjectWrapper.FRIEND_LIST,player));
+        myControl.sendData(new ObjectWrapper(ObjectWrapper.FRIEND_LIST,player));
 
-        mySocket.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_FRIEND_LIST,this));
-        mySocket.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_FRIEND_REQUEST, this));
-        mySocket.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_ACCEPT_FRIEND, this));
+        myControl.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_FRIEND_LIST,this));
+        myControl.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_FRIEND_REQUEST, this));
+        myControl.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_ACCEPT_FRIEND, this));
     }
 
     /**
@@ -242,7 +242,7 @@ public class FriendFrm extends javax.swing.JFrame {
         befriend.add(other);
         System.out.println(other);
         befriend.add(player);
-        mySocket.sendData(new ObjectWrapper(ObjectWrapper.ACCEPT_FRIEND, befriend));
+        myControl.sendData(new ObjectWrapper(ObjectWrapper.ACCEPT_FRIEND, befriend));
         this.dispose();
     }
 
@@ -252,18 +252,18 @@ public class FriendFrm extends javax.swing.JFrame {
         befriend.add(other);
         befriend.add(player);
         befriend.add(new Player());
-        mySocket.sendData(new ObjectWrapper(ObjectWrapper.ACCEPT_FRIEND, befriend));
+        myControl.sendData(new ObjectWrapper(ObjectWrapper.ACCEPT_FRIEND, befriend));
         this.dispose();
     }
 
     private void jPanel3ComponentShown(java.awt.event.ComponentEvent evt) {
         // TODO add your handling code here:
-        mySocket.sendData(new ObjectWrapper(ObjectWrapper.FRIEND_REQUEST, player));
+        myControl.sendData(new ObjectWrapper(ObjectWrapper.FRIEND_REQUEST, player));
     }
 
     private void jPanel1ComponentShown(java.awt.event.ComponentEvent evt) {
         // TODO add your handling code here:
-        mySocket.sendData(new ObjectWrapper(ObjectWrapper.FRIEND_LIST,player));
+        myControl.sendData(new ObjectWrapper(ObjectWrapper.FRIEND_LIST,player));
     }
 
     private void btndelActionPerformed(java.awt.event.ActionEvent evt) {
@@ -273,14 +273,14 @@ public class FriendFrm extends javax.swing.JFrame {
     private void btninfActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         ObjectWrapper existed = null;
-        for (ObjectWrapper func : mySocket.getActiveFunction())
+        for (ObjectWrapper func : myControl.getActiveFunction())
             if (func.getData() instanceof PlayerInfoFrm) {
                 ((PlayerInfoFrm) func.getData()).dispose();
                 existed = func;
             }
         if (existed != null)
-            mySocket.getActiveFunction().remove(existed);
-        (new PlayerInfoFrm(mySocket, player, other)).setVisible(true);
+            myControl.getActiveFunction().remove(existed);
+        (new PlayerInfoFrm(myControl, player, other)).setVisible(true);
     }
 
     // Variables declaration - do not modify
@@ -347,7 +347,7 @@ public class FriendFrm extends javax.swing.JFrame {
                 if (data.getData().equals("ok")) {
                     JOptionPane.showMessageDialog(rootPane, "Accept");
                 } else JOptionPane.showMessageDialog(rootPane, "Refuse");
-                mySocket.sendData(new ObjectWrapper(ObjectWrapper.FRIEND_LIST, player));
+                myControl.sendData(new ObjectWrapper(ObjectWrapper.FRIEND_LIST, player));
                 break;
         }
     }

@@ -13,11 +13,11 @@ public class LoginFrm extends JFrame implements ActionListener{
     private JTextField txtUsername;
     private JPasswordField txtPassword;
     private JButton btnLogin;
-    private ClientCtr mySocket;
+    private ClientCtr myControl;
 
     public LoginFrm(ClientCtr socket){
         super("Login MVC");
-        mySocket = socket;
+        myControl = socket;
 
         txtUsername = new JTextField(15);
         txtPassword = new JPasswordField(15);
@@ -36,7 +36,7 @@ public class LoginFrm extends JFrame implements ActionListener{
         this.setContentPane(content);
         this.pack();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        mySocket.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_LOGIN_USER,this));
+        myControl.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_LOGIN_USER,this));
     }
 
 
@@ -48,7 +48,7 @@ public class LoginFrm extends JFrame implements ActionListener{
             player.setPassword(txtPassword.getText());
 
             //sending data
-            mySocket.sendData(new ObjectWrapper(ObjectWrapper.LOGIN_USER, player));
+            myControl.sendData(new ObjectWrapper(ObjectWrapper.LOGIN_USER, player));
         }
     }
 
@@ -56,11 +56,11 @@ public class LoginFrm extends JFrame implements ActionListener{
     public void receivedDataProcessing(ObjectWrapper data){
         if(data.getData() instanceof Player) {
             Player player = (Player) data.getData();
-            new MainFrm(player,mySocket).setVisible(true);
+            new MainFrm(player,myControl).setVisible(true);
             this.dispose();
-            for (ObjectWrapper func : mySocket.getActiveFunction()) {
+            for (ObjectWrapper func : myControl.getActiveFunction()) {
                 if(func.getPerformative() == ObjectWrapper.REPLY_LOGIN_USER){
-                    mySocket.getActiveFunction().remove(func);
+                    myControl.getActiveFunction().remove(func);
                     break;
                 }
             }

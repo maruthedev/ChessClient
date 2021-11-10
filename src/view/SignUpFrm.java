@@ -13,11 +13,11 @@ public class SignUpFrm extends JFrame implements ActionListener{
     private JTextField txtUsername;
     private JPasswordField txtPassword;
     private JButton btnSignUp;
-    private ClientCtr mySocket;
+    private ClientCtr myControl;
 
     public SignUpFrm(ClientCtr socket){
         super("Sign up");
-        mySocket = socket;
+        myControl = socket;
 
         txtUsername = new JTextField(15);
         txtPassword = new JPasswordField(15);
@@ -36,7 +36,7 @@ public class SignUpFrm extends JFrame implements ActionListener{
         this.setContentPane(content);
         this.pack();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        mySocket.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_SIGNUP_USER,this));
+        myControl.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_SIGNUP_USER,this));
     }
 
 
@@ -48,7 +48,7 @@ public class SignUpFrm extends JFrame implements ActionListener{
             player.setPassword(txtPassword.getText());
 
             //sending data
-            mySocket.sendData(new ObjectWrapper(ObjectWrapper.SIGNUP_USER, player));
+            myControl.sendData(new ObjectWrapper(ObjectWrapper.SIGNUP_USER, player));
         }
     }
 
@@ -56,7 +56,7 @@ public class SignUpFrm extends JFrame implements ActionListener{
     public void receivedDataProcessing(ObjectWrapper data){
         if(data.getData() instanceof Player) {
             Player player = (Player) data.getData();
-            new MainFrm(player,mySocket).setVisible(true);
+            new MainFrm(player,myControl).setVisible(true);
             this.dispose();
         }
         else {

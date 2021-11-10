@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Administrator
  */
 public class PlayerInfoFrm extends javax.swing.JFrame {
-    private ClientCtr mySocket;
+    private ClientCtr myControl;
     private Player player;
     private Player other;
     /**
@@ -22,10 +22,10 @@ public class PlayerInfoFrm extends javax.swing.JFrame {
     public PlayerInfoFrm(ClientCtr socket, Player p, Player other) {
         this.player = p;
         this.other = other;
-        mySocket = socket;
+        myControl = socket;
         initComponents(other);
         this.setLocationRelativeTo(null);
-        mySocket.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_ADD_FRIEND,this));
+        myControl.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_ADD_FRIEND,this));
     }
 
     /**
@@ -157,7 +157,7 @@ public class PlayerInfoFrm extends javax.swing.JFrame {
         ArrayList<Player> befriend = new ArrayList<>();
         befriend.add(player);
         befriend.add(other);
-        mySocket.sendData(new ObjectWrapper(ObjectWrapper.ADD_FRIEND,befriend));
+        myControl.sendData(new ObjectWrapper(ObjectWrapper.ADD_FRIEND,befriend));
     }
 
     private void btnchallengeActionPerformed(java.awt.event.ActionEvent evt) {
