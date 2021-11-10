@@ -2,7 +2,6 @@ package control;
 
 import model.IPAddress;
 import model.ObjectWrapper;
-import sun.applet.Main;
 import view.*;
 
 import java.io.ObjectInputStream;
@@ -105,6 +104,10 @@ public class ClientCtr {
                                         case ObjectWrapper.REPLY_LOGIN_USER:
                                             LoginFrm loginView = (LoginFrm) fto.getData();
                                             loginView.receivedDataProcessing(data);
+                                            break;
+                                        case ObjectWrapper.REPLY_SIGNUP_USER:
+                                            SignUpFrm suf = (SignUpFrm) fto.getData();
+                                            suf.receivedDataProcessing(data);
                                             break;
                                         case ObjectWrapper.REPLY_ONLINE_PLAYER:
                                             OnlinePlayerFrm opf = (OnlinePlayerFrm) fto.getData();

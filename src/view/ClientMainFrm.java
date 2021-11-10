@@ -14,7 +14,7 @@ import java.awt.event.WindowEvent;
 public class ClientMainFrm extends JFrame implements ActionListener{
     private JMenuBar mnbMain;
     private JMenu mnUser;
-    private JMenuItem mniLogin;
+    private JMenuItem mniLogin, mniSignUp;
 
     private JTextField txtServerHost;
     private JTextField txtServerPort;
@@ -26,7 +26,6 @@ public class ClientMainFrm extends JFrame implements ActionListener{
     public ClientMainFrm(){
         super("Client view");
 
-
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(null);
 
@@ -34,11 +33,15 @@ public class ClientMainFrm extends JFrame implements ActionListener{
         mnUser = new JMenu("User");
         mniLogin = new JMenuItem("Login");
         mniLogin.addActionListener(this);
+        mniSignUp = new JMenuItem("Sign up");
+        mniSignUp.addActionListener(this);
         mnUser.add(mniLogin);
+        mnUser.add(mniSignUp);
         mnbMain.add(mnUser);
 
         this.setJMenuBar(mnbMain);
         mniLogin.setEnabled(false);
+        mniSignUp.setEnabled(false);
 
         JLabel lblTitle = new JLabel("Client TCP/IP");
         lblTitle.setFont(new java.awt.Font("Dialog", 1, 20));
@@ -114,6 +117,7 @@ public class ClientMainFrm extends JFrame implements ActionListener{
                     btnDisconnect.setEnabled(true);
                     btnConnect.setEnabled(false);
                     mniLogin.setEnabled(true);
+                    mniSignUp.setEnabled(true);
                 }else {
                     resetClient();
                 }
@@ -125,6 +129,9 @@ public class ClientMainFrm extends JFrame implements ActionListener{
             if(mni.equals(mniLogin)) {// login function
                 LoginFrm lf = new LoginFrm(myControl);
                 lf.setVisible(true);
+            }else if (mni.equals(mniSignUp)){
+                SignUpFrm suf = new SignUpFrm(myControl);
+                suf.setVisible(true);
             }
         }
     }
