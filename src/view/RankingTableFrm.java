@@ -123,7 +123,7 @@ public class RankingTableFrm extends javax.swing.JFrame {
                 if(data.getData() instanceof ArrayList){
 
                     playerlist = (ArrayList<Player>) data.getData();
-                    String[] columnNames = {"id","username", "status", "wins", "loses"};
+                    String[] columnNames = {"no","username", "status", "wins", "loses"};
                     String[][] value = new String[playerlist.size()][columnNames.length];
                     Collections.sort(playerlist, new Comparator<Player>() {
                         @Override
@@ -141,8 +141,9 @@ public class RankingTableFrm extends javax.swing.JFrame {
                             return 0;
                         }
                     });
+                    int rankno = 1;
                     for(int i=0; i<playerlist.size(); i++){
-                        value[i][0] = playerlist.get(i).getId() +"";
+                        value[i][0] = rankno + ""; rankno++;
                         value[i][1] = playerlist.get(i).getUsername();
                         value[i][2] = playerlist.get(i).getStatus();
                         value[i][3] = playerlist.get(i).getWins() + "";
