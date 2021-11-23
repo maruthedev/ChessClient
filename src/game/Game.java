@@ -28,18 +28,6 @@ public class Game {
     private String omove;
     private ClientCtr myControl;
 
-//    public Game() throws IOException {
-//        mainframe = new JFrame("GAME");
-//        ps = new LinkedList<>();
-//        all = ImageIO.read(new File("art/chess.png"));
-//        imgs = new Image[12];
-//        pickedPiece = null;
-//        opickedPiece = null;
-//        initUI();
-//
-//        play();
-//    }
-
     public Game(Player player, ClientCtr myControl) throws IOException {
         mainframe = new JFrame("GAME");
         ps = new LinkedList<>();
@@ -242,11 +230,6 @@ public class Game {
         }
         return null;
     }
-
-//    public static void main(String[] args) throws IOException {
-//        Game m = new Game();
-//        m.mainframe.setVisible(true);
-//    }
 
     public void receivedDataProcessing(ObjectWrapper data){
         switch (data.getPerformative()){
