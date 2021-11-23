@@ -1,9 +1,12 @@
 package control;
 
+import game.Game;
 import model.IPAddress;
+import model.Match;
 import model.ObjectWrapper;
 import view.*;
 
+import javax.swing.*;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -131,6 +134,16 @@ public class ClientCtr {
                                         case ObjectWrapper.REPLY_RANK:
                                             RankingTableFrm rtf = (RankingTableFrm) fto.getData();
                                             rtf.receivedDataProcessing(data);
+                                            break;
+                                        case ObjectWrapper.REP_MOVE:
+                                        case ObjectWrapper.REP_O_MOVE:
+                                            Game g = null;
+                                            for ( ObjectWrapper o: myFunction) {
+                                                if(o.getPerformative() == ObjectWrapper.REP_MOVE){
+                                                    g = (Game) o.getData();
+                                                }
+                                            }
+                                            g.receivedDataProcessing(data);
                                             break;
                                     }
                                 }

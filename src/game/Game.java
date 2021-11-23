@@ -13,41 +13,48 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Match{
-    private JFrame mainframe;
+public class Game {
+    public JFrame mainframe;
     private LinkedList<Piece> ps;
     private BufferedImage all;
     private Image imgs[];
     private Piece pickedPiece;
     private Piece opickedPiece;
     private Player player;
-    private Player other;
     private String umove;
     private String omove;
     private ClientCtr myControl;
 
-    public Match() throws IOException {
-        mainframe = new JFrame("GAME");
-        ps = new LinkedList<>();
-        all = ImageIO.read(new File("art/chess.png"));
-        imgs = new Image[12];
-        pickedPiece = null;
-        opickedPiece = null;
-        initUI();
-    }
+//    public Game() throws IOException {
+//        mainframe = new JFrame("GAME");
+//        ps = new LinkedList<>();
+//        all = ImageIO.read(new File("art/chess.png"));
+//        imgs = new Image[12];
+//        pickedPiece = null;
+//        opickedPiece = null;
+//        initUI();
+//
+//        play();
+//    }
 
-    public Match(Player player, Player other, ClientCtr myControl) throws IOException {
+    public Game(Player player, ClientCtr myControl) throws IOException {
         mainframe = new JFrame("GAME");
         ps = new LinkedList<>();
         all = ImageIO.read(new File("art/chess.png"));
         imgs = new Image[12];
         pickedPiece = null;
         this.player = player;
-        this.other = other;
         this.myControl = myControl;
         initUI();
+
+        myControl.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REP_MOVE,this));
+        myControl.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REP_O_MOVE,this));
+
+        play();
+        op_play();
     }
 
     private void initUI() {
@@ -104,7 +111,6 @@ public class Match{
             @Override
             public void paint(Graphics g) {
                 boolean white = true;
-
                 // draw the board
                 for (int y = 0; y < 8; y++) {
                     for (int x = 0; x < 8; x++) {
@@ -150,7 +156,6 @@ public class Match{
 
         };
         mainframe.add(pn);
-        mainframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     private void play() {
@@ -164,7 +169,7 @@ public class Match{
 
             @Override
             public void mousePressed(MouseEvent e) {
-                pickedPiece = pick((e.getX() - 32)/64,(e.getY()-32)/64);
+                pickedPiece = pick((e.getX()-32)/64,(e.getY()-32)/64);
                 pickedPiece.premove();
                 System.out.printf((pickedPiece.isWhite() == true?"WHITE ":"BLACK ") + pickedPiece.getName() + " ");
             }
@@ -176,8 +181,12 @@ public class Match{
 
                 // send here
                 umove = pickedPiece.getMovement();
+                ArrayList<Object> mm = new ArrayList<>();
+                mm.add(player);
+                mm.add(umove);
+                myControl.sendData(new ObjectWrapper(ObjectWrapper.MOVE,mm));
 
-                System.out.println(pickedPiece.getMovement());
+                System.out.println(umove);
                 pickedPiece = null;
             }
 
@@ -196,7 +205,7 @@ public class Match{
             @Override
             public void mouseDragged(MouseEvent e) {
                 if(pickedPiece != null){
-                    pickedPiece.setXp((e.getX()-32)/64);
+                    pickedPiece.setXp((e.getX())/64);
                     pickedPiece.setYp((e.getY()-32)/64);
                     mainframe.repaint();
                 }
@@ -207,7 +216,9 @@ public class Match{
 
             }
         });
+    }
 
+    private void op_play(){
         // opponent
         if(opickedPiece != null){
             int preox = Integer.parseInt(String.valueOf(omove.charAt(0)));
@@ -221,7 +232,6 @@ public class Match{
             mainframe.repaint();
             opickedPiece = null;
         }
-
     }
 
     private Piece pick(int x, int y) {
@@ -233,9 +243,25 @@ public class Match{
         return null;
     }
 
-    public static void main(String[] args) throws IOException {
-        Match m = new Match();
-        m.mainframe.setVisible(true);
-        m.play();
+//    public static void main(String[] args) throws IOException {
+//        Game m = new Game();
+//        m.mainframe.setVisible(true);
+//    }
+
+    public void receivedDataProcessing(ObjectWrapper data){
+        switch (data.getPerformative()){
+            case ObjectWrapper.REP_MOVE:
+                if(data.getData().equals("ok")){
+                    System.out.println("ok");
+                }else System.out.println("error");
+                break;
+            case ObjectWrapper.REP_O_MOVE:
+                omove = (String) data.getData();
+                int x = Integer.parseInt(String.valueOf(omove.charAt(0)));
+                int y = Integer.parseInt(String.valueOf(omove.charAt(1)));
+                opickedPiece = pick(x,y);
+                op_play();
+                break;
+        }
     }
 }

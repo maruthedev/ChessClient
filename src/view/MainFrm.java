@@ -1,11 +1,12 @@
 package view;
 
 import control.ClientCtr;
+import game.Game;
 import model.ObjectWrapper;
 import model.Player;
 
 import javax.swing.*;
-import java.util.ArrayList;
+import java.io.IOException;
 
 /**
  * @author Administrator
@@ -82,7 +83,11 @@ public class MainFrm extends javax.swing.JFrame {
         btn1.setText("Button 1");
         btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn1ActionPerformed(evt);
+                try {
+                    btn1ActionPerformed(evt);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -225,9 +230,11 @@ public class MainFrm extends javax.swing.JFrame {
 
     }// </editor-fold>
 
-    private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btn1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
         // TODO add your handling code here:
-        //new RoomFrm().setVisible(true);
+        Game g = new Game(player,myControl);
+        g.mainframe.setVisible(true);
+
     }
 
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {
