@@ -33,6 +33,7 @@ public class FriendFrm extends javax.swing.JFrame {
         myControl.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_FRIEND_LIST,this));
         myControl.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_FRIEND_REQUEST, this));
         myControl.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_ACCEPT_FRIEND, this));
+        myControl.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_DELETE_FRIEND,this));
     }
 
     /**
@@ -268,6 +269,10 @@ public class FriendFrm extends javax.swing.JFrame {
 
     private void btndelActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        ArrayList<Player> bf = new ArrayList<>();
+        bf.add(player);
+        bf.add(other);
+        myControl.sendData(new ObjectWrapper(ObjectWrapper.DELETE_FRIEND,bf));
     }
 
     private void btninfActionPerformed(java.awt.event.ActionEvent evt) {
@@ -347,6 +352,12 @@ public class FriendFrm extends javax.swing.JFrame {
                 if (data.getData().equals("ok")) {
                     JOptionPane.showMessageDialog(rootPane, "Accept");
                 } else JOptionPane.showMessageDialog(rootPane, "Refuse");
+                myControl.sendData(new ObjectWrapper(ObjectWrapper.FRIEND_LIST, player));
+                break;
+            case ObjectWrapper.REPLY_DELETE_FRIEND:
+                if (data.getData().equals("ok")) {
+                    JOptionPane.showMessageDialog(rootPane, "Delete");
+                } else JOptionPane.showMessageDialog(rootPane, "Error");
                 myControl.sendData(new ObjectWrapper(ObjectWrapper.FRIEND_LIST, player));
                 break;
         }

@@ -46,8 +46,8 @@ public class MainFrm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        btncreate = new javax.swing.JButton();
-        btnjoin = new javax.swing.JButton();
+        btn1 = new javax.swing.JButton();
+        btn2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtusername = new javax.swing.JTextField(p.getUsername());
@@ -79,17 +79,17 @@ public class MainFrm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Main Frame");
 
-        btncreate.setText("Create a new Room");
-        btncreate.addActionListener(new java.awt.event.ActionListener() {
+        btn1.setText("Button 1");
+        btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btncreateActionPerformed(evt);
+                btn1ActionPerformed(evt);
             }
         });
 
-        btnjoin.setText("Join an exist Room");
-        btnjoin.addActionListener(new java.awt.event.ActionListener() {
+        btn2.setText("Button 2");
+        btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnjoinActionPerformed(evt);
+                btn2ActionPerformed(evt);
             }
         });
 
@@ -154,8 +154,8 @@ public class MainFrm extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(btnjoin, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btncreate)
+                                        .addComponent(btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btn1)
                                         .addComponent(btngroup, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(86, 86, 86)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,11 +206,11 @@ public class MainFrm extends javax.swing.JFrame {
                                         .addComponent(txtloses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(47, 47, 47)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btncreate)
+                                        .addComponent(btn1)
                                         .addComponent(btnfriend))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btnjoin)
+                                        .addComponent(btn2)
                                         .addComponent(btnonlineplayer))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -225,12 +225,12 @@ public class MainFrm extends javax.swing.JFrame {
 
     }// </editor-fold>
 
-    private void btncreateActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         //new RoomFrm().setVisible(true);
     }
 
-    private void btnjoinActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         //new RoomListFrm().setVisible(true);
     }
@@ -276,9 +276,9 @@ public class MainFrm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify
-    private javax.swing.JButton btncreate;
+    private javax.swing.JButton btn1;
     private javax.swing.JButton btngroup;
-    private javax.swing.JButton btnjoin;
+    private javax.swing.JButton btn2;
     private javax.swing.JButton btnlogout;
     private javax.swing.JButton btnonlineplayer;
     private javax.swing.JButton btnranking;

@@ -124,6 +124,7 @@ public class ClientCtr {
                                         case ObjectWrapper.REPLY_FRIEND_LIST:
                                         case ObjectWrapper.REPLY_FRIEND_REQUEST:
                                         case ObjectWrapper.REPLY_ACCEPT_FRIEND:
+                                        case ObjectWrapper.REPLY_DELETE_FRIEND:
                                             FriendFrm ff = (FriendFrm) fto.getData();
                                             ff.receivedDataProcessing(data);
                                             break;

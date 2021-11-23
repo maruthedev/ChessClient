@@ -162,7 +162,7 @@ public class PlayerInfoFrm extends javax.swing.JFrame {
 
     private void btnchallengeActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        System.out.println("challenge");
+
     }
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {
