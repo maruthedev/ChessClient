@@ -13,11 +13,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class OnlinePlayerFrm extends JFrame implements ActionListener{
+public class OnlinePlayerFrm extends JFrame{
     private Player player;
     private ArrayList<Player> listPlayer;
     private JTextField txtKey;
-    private JButton btnRefresh;
     private JTable tblResult;
     private ClientCtr myControl;
     private JTextArea mainText;
@@ -43,9 +42,6 @@ public class OnlinePlayerFrm extends JFrame implements ActionListener{
         pn1.setLayout(new BoxLayout(pn1,BoxLayout.X_AXIS));
         pn1.setSize(this.getSize().width-5, 20);
 
-        btnRefresh = new JButton("Online Player");
-        btnRefresh.addActionListener(this);
-        pn1.add(btnRefresh);
         pnMain.add(pn1);
         pnMain.add(Box.createRigidArea(new Dimension(0,10)));
 
@@ -95,16 +91,8 @@ public class OnlinePlayerFrm extends JFrame implements ActionListener{
         this.setLocation(200,10);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        myControl.sendData(new ObjectWrapper(ObjectWrapper.ONLINE_PLAYER,""));
         myControl.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_ONLINE_PLAYER, this));
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        JButton btnClicked = (JButton)e.getSource();
-        if(btnClicked.equals(btnRefresh)){
-            myControl.sendData(new ObjectWrapper(ObjectWrapper.ONLINE_PLAYER,player));
-        }
     }
 
     /**
