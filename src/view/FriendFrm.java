@@ -230,6 +230,8 @@ public class FriendFrm extends javax.swing.JFrame {
         );
 
         pack();
+
+
     }
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,7 +246,6 @@ public class FriendFrm extends javax.swing.JFrame {
         System.out.println(other);
         befriend.add(player);
         myControl.sendData(new ObjectWrapper(ObjectWrapper.ACCEPT_FRIEND, befriend));
-        this.dispose();
     }
 
     private void btnrefActionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,7 +255,6 @@ public class FriendFrm extends javax.swing.JFrame {
         befriend.add(player);
         befriend.add(new Player());
         myControl.sendData(new ObjectWrapper(ObjectWrapper.ACCEPT_FRIEND, befriend));
-        this.dispose();
     }
 
     private void jPanel3ComponentShown(java.awt.event.ComponentEvent evt) {
@@ -352,12 +352,14 @@ public class FriendFrm extends javax.swing.JFrame {
                 if (data.getData().equals("ok")) {
                     JOptionPane.showMessageDialog(rootPane, "Accept");
                 } else JOptionPane.showMessageDialog(rootPane, "Refuse");
+                myControl.sendData(new ObjectWrapper(ObjectWrapper.FRIEND_REQUEST, player));
                 myControl.sendData(new ObjectWrapper(ObjectWrapper.FRIEND_LIST, player));
                 break;
             case ObjectWrapper.REPLY_DELETE_FRIEND:
                 if (data.getData().equals("ok")) {
                     JOptionPane.showMessageDialog(rootPane, "Delete");
                 } else JOptionPane.showMessageDialog(rootPane, "Error");
+                myControl.sendData(new ObjectWrapper(ObjectWrapper.FRIEND_REQUEST, player));
                 myControl.sendData(new ObjectWrapper(ObjectWrapper.FRIEND_LIST, player));
                 break;
         }

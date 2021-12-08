@@ -246,7 +246,7 @@ public class MainFrm extends javax.swing.JFrame {
         // TODO add your handling code here:
         for (ObjectWrapper func : myControl.getActiveFunction())
             if (func.getData() instanceof FriendFrm) {
-                ((OnlinePlayerFrm) func.getData()).setVisible(true);
+                ((FriendFrm) func.getData()).setVisible(true);
                 return;
             }
         FriendFrm ff = new FriendFrm(myControl, player);

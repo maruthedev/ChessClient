@@ -29,7 +29,6 @@ public class Game {
     private ClientCtr myControl;
 
     public Game(Player player, ClientCtr myControl) throws IOException {
-        mainframe = new JFrame("GAME");
         ps = new LinkedList<>();
         all = ImageIO.read(new File("art/chess.png"));
         imgs = new Image[12];
@@ -46,6 +45,7 @@ public class Game {
     }
 
     private void initUI() {
+        mainframe = new JFrame("GAME VIEW ID " + this.player.getId());
         int index = 0;
         for (int y = 0; y < 400; y += 200) {
             for (int x = 0; x < 1200; x += 200) {
