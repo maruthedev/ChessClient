@@ -1,6 +1,7 @@
 package view;
 
 import control.ClientCtr;
+import model.BeFriend;
 import model.ObjectWrapper;
 import model.Player;
 
@@ -146,9 +147,7 @@ public class FriendFrm extends javax.swing.JFrame {
                 super.mouseClicked(e);
                 int column = tblrequestlist.getColumnModel().getColumnIndexAtX(e.getX()); // get the column of the button
                 int row = e.getY() / tblrequestlist.getRowHeight(); // get the row of the button
-                //for(int i = 0;i<3;i++){
                 other = requestList.get(row);
-                //}
                 System.out.println("click");
             }
         });
@@ -228,10 +227,7 @@ public class FriendFrm extends javax.swing.JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jTabbedPane1)
         );
-
         pack();
-
-
     }
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,20 +237,16 @@ public class FriendFrm extends javax.swing.JFrame {
 
     private void btnacpActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        ArrayList<Player> befriend = new ArrayList<>();
-        befriend.add(other);
-        System.out.println(other);
-        befriend.add(player);
-        myControl.sendData(new ObjectWrapper(ObjectWrapper.ACCEPT_FRIEND, befriend));
+        BeFriend bf = new BeFriend(0,"accept",other,player);
+        myControl.sendData(new ObjectWrapper(ObjectWrapper.ACCEPT_FRIEND, bf));
+        System.out.println("acp");
     }
 
     private void btnrefActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        ArrayList<Player> befriend = new ArrayList<>();
-        befriend.add(other);
-        befriend.add(player);
-        befriend.add(new Player());
-        myControl.sendData(new ObjectWrapper(ObjectWrapper.ACCEPT_FRIEND, befriend));
+        BeFriend bf = new BeFriend(0,"refuse",other,player);
+        myControl.sendData(new ObjectWrapper(ObjectWrapper.ACCEPT_FRIEND, bf));
+        System.out.println("ref");
     }
 
     private void jPanel3ComponentShown(java.awt.event.ComponentEvent evt) {
@@ -269,9 +261,7 @@ public class FriendFrm extends javax.swing.JFrame {
 
     private void btndelActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        ArrayList<Player> bf = new ArrayList<>();
-        bf.add(player);
-        bf.add(other);
+        BeFriend bf = new BeFriend(0,"delete",player,other);
         myControl.sendData(new ObjectWrapper(ObjectWrapper.DELETE_FRIEND,bf));
     }
 
@@ -350,8 +340,8 @@ public class FriendFrm extends javax.swing.JFrame {
 
             case ObjectWrapper.REPLY_ACCEPT_FRIEND:
                 if (data.getData().equals("ok")) {
-                    JOptionPane.showMessageDialog(rootPane, "Accept");
-                } else JOptionPane.showMessageDialog(rootPane, "Refuse");
+                    JOptionPane.showMessageDialog(rootPane, "success");
+                } else JOptionPane.showMessageDialog(rootPane, "error");
                 myControl.sendData(new ObjectWrapper(ObjectWrapper.FRIEND_REQUEST, player));
                 myControl.sendData(new ObjectWrapper(ObjectWrapper.FRIEND_LIST, player));
                 break;

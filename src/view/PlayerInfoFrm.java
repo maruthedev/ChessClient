@@ -2,6 +2,7 @@ package view;
 
 import control.ClientCtr;
 import jdk.nashorn.internal.scripts.JO;
+import model.BeFriend;
 import model.ObjectWrapper;
 import model.Player;
 
@@ -154,15 +155,14 @@ public class PlayerInfoFrm extends javax.swing.JFrame {
 
     private void btnaddActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        ArrayList<Player> befriend = new ArrayList<>();
-        befriend.add(player);
-        befriend.add(other);
-        myControl.sendData(new ObjectWrapper(ObjectWrapper.ADD_FRIEND,befriend));
+        if(player.getId() != other.getId()) {
+            BeFriend bf = new BeFriend(0, "request", player, other);
+            myControl.sendData(new ObjectWrapper(ObjectWrapper.ADD_FRIEND, bf));
+        }else JOptionPane.showMessageDialog(rootPane,"ERROR");
     }
 
     private void btnchallengeActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-
     }
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {
