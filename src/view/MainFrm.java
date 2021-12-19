@@ -1,7 +1,7 @@
 package view;
 
 import control.ClientCtr;
-import game.Game;
+import game.GameWindow;
 import model.ObjectWrapper;
 import model.Player;
 
@@ -232,9 +232,8 @@ public class MainFrm extends javax.swing.JFrame {
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
         // TODO add your handling code here:
-        Game g = new Game(player,myControl);
-        g.mainframe.setVisible(true);
-
+        GameWindow g = new GameWindow(player, myControl);
+        g.mainFrame.setVisible(true);
     }
 
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {

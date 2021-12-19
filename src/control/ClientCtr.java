@@ -1,12 +1,10 @@
 package control;
 
-import game.Game;
+import game.Board;
 import model.IPAddress;
-import model.Match;
 import model.ObjectWrapper;
 import view.*;
 
-import javax.swing.*;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -137,13 +135,13 @@ public class ClientCtr {
                                             break;
                                         case ObjectWrapper.REP_MOVE:
                                         case ObjectWrapper.REP_O_MOVE:
-                                            Game g = null;
+                                            Board b = null;
                                             for ( ObjectWrapper o: myFunction) {
                                                 if(o.getPerformative() == ObjectWrapper.REP_MOVE){
-                                                    g = (Game) o.getData();
+                                                    b = (Board) o.getData();
                                                 }
                                             }
-                                            g.receivedDataProcessing(data);
+                                            b.receivedDataProcessing(data);
                                             break;
                                     }
                                 }
